@@ -9,11 +9,11 @@ import { FilterTaskPipe }from '../../pipe/filterTask.pipe';
 import { observable } from 'rxjs';
 
 @Component({
-  selector: 'app-view',
-  templateUrl: './view.component.html',
-  styleUrls: ['./view.component.css']
+  selector: 'app-viewTask',
+  templateUrl: './viewTask.component.html',
+  styleUrls: ['./viewTask.component.css']
 })
-export class ViewComponent implements OnInit {
+export class ViewTaskComponent implements OnInit {
  item:Task[]=[];
  searchTask:string;
  searchParentTask:string;

@@ -7,10 +7,10 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 @Component({
   selector: 'app-edit',
-  templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.css']
+  templateUrl: './editTask.component.html',
+  styleUrls: ['./editTask.component.css']
 })
-export class EditComponent implements OnInit {
+export class EditTaskComponent implements OnInit {
   task = new Task();
   constructor(private _service:SharedService, 
     private _router: Router,

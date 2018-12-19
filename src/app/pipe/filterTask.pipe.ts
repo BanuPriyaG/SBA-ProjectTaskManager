@@ -1,6 +1,6 @@
 import { PipeTransform,Pipe } from "@angular/core";
 import { Task } from  '../models/task';
-import { ViewComponent } from '../ui/view/view.component';
+import { ViewTaskComponent } from '../ui/viewTask/viewTask.component';
 import { isoStringToDate } from "@angular/common/src/i18n/format_date";
 
 @Pipe({

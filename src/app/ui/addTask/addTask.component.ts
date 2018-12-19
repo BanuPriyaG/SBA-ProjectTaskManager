@@ -7,11 +7,11 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 @Component({
   selector: 'app-add',
-  templateUrl: './add.component.html',
-  styleUrls: ['./add.component.css']
+  templateUrl: './addTask.component.html',
+  styleUrls: ['./addTask.component.css']
 })
 
-export class AddComponent implements OnInit {
+export class AddTaskComponent implements OnInit {
   task = new Task();
   constructor(private _service:SharedService,
     private _route: ActivatedRoute,
