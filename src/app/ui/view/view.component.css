@@ -1,0 +1,43 @@
+input{
+    color: light gray,
+}
+
+.border{
+    border: 2px solid black;
+    padding:1%;
+}
+
+.inline{
+    display: inline-block;
+}
+
+.zeropad{
+    padding:0;
+}
+
+div{
+    padding: 0;
+}
+
+.container{
+    padding: 1%;
+}
+
+table label{
+    background-color: lightgray;
+    width:150px;
+    height:50px;
+    border-radius: 0.2em;
+    display: flex;
+    padding-left: 10%;
+    align-items: center;
+    text-align: center;         
+}
+
+#infoModal ,.modal-dialog { 
+    padding: 14%;
+}
+
+.modal-body,.modal-header,.modal-footer{
+    padding: 1%
+}

@@ -1,0 +1,16 @@
+.inline{
+    display: inline-block;
+}
+.container{
+    width:40%;
+    margin:2%;
+}
+.left{
+    float: left;
+}
+#btndivision{
+    text-align: center;
+}
+#btndivision button{
+    margin:2%;
+}

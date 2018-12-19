@@ -1,0 +1,76 @@
+<div style="width:80%;margin:2%">
+    <div class="row" >
+        <div class="col-sm-6">
+                <form class="form-inline" action="/action_page.php" style="margin-top:1%;margin-left: 2%">
+                    <label style="font-weight: 100" for="searchTask">Task:</label>
+                    <input type="text" class="form-control" id="searchTask" name="searchTask" [(ngModel)]='searchTask'
+                    style="margin-left:2%;background-color:lightgrey;width:85%;position:relative" align="right"/>
+                </form>
+        </div>
+        <div class="col-sm-6">
+                <form class="form-inline" action="/action_page.php" style="margin-top:1%;margin-left: 2%">
+                    <label style="font-weight: 100" for="searchParentTask">Parent Task:</label>
+                    <input type="text" class="form-control" id="searchParentTask" name="searchParentTask" [(ngModel)]='searchParentTask'
+                    style="margin-left:2%;background-color:lightgrey;width:75%;position:relative" align="right"/>
+                </form>
+        </div>
+  </div>
+
+  <div class="row" style="margin-top:2%" >
+        <div class="col-sm-3">
+                <form class="form-inline" action="/action_page.php" style="margin-top:1%;margin-left: 1%">
+                    <label style="font-weight: 100" for="searchPriorityFrom">Priority From:</label>
+                    <input type="number" class="form-control" id="searchPriorityFrom" name="searchPriorityFrom" [(ngModel)]='searchPriorityFrom'
+                    style="margin-left:2%;background-color:lightgrey;width:50%" align="right"/>
+                </form>
+        </div>
+        <div class="col-sm-3">
+                <form class="form-inline" action="/action_page.php" style="margin-top:1%;margin-left: 1%">
+                    <label style="font-weight: 100" for="searchPriorityTo">Priority To:</label>
+                    <input type="number" class="form-control" id="searchPriorityTo" name="searchPriorityTo" [(ngModel)]='searchPriorityTo'
+                    style="margin-left:2%;background-color:lightgrey;width:50%" align="right"/>
+                </form>
+        </div>
+        <div class="col-sm-3">
+                <form class="form-inline" action="/action_page.php" style="margin-top:1%;margin-left: 1%">
+                    <label style="font-weight: 100" for="startSearch">Start Date:</label>
+                    <input type="date" class="form-control" id="startSearch" name="startSearch" [(ngModel)]='startSearch'
+                    style="margin-left:2%;background-color:lightgrey;width:50%" align="right"/>
+                </form>
+        </div>
+        <div class="col-sm-3">
+                <form class="form-inline" action="/action_page.php" style="margin-top:1%;margin-left: 1%">
+                    <label style="font-weight: 100" for="endSearch">End Date:</label>
+                    <input type="date" class="form-control" id="endSearch" name="endSearch" [(ngModel)]='endSearch' 
+                    style="margin-left:2%;background-color:lightgrey;width:50%" align="right"/>
+                </form>
+        </div>
+  </div>
+  </div>
+
+  <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Task</th>
+                <th>ParentTask</th>
+                <th>Priority</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let i of item | filterTask:searchTask:searchParentTask:startSearch:endSearch:searchPriorityFrom:searchPriorityTo">
+                <td><label>{{i.task}}</label></td>
+                <td><label>{{i.parentTask}}</label></td>
+                <td>{{i.priority}}</td>
+                <td>{{i.start_Date | date}}</td>
+                <td>{{i.end_Date | date}}</td>
+                <td>
+                    <button type="button" class="btn btn-default" [routerLink]="['/EditTask', i.task_Id]">Edit</button> 
+                </td>
+                <td>                    
+                    <button type="button" class="btn btn-default" (click)='Delete(i.task_Id)'>End Task</button>
+                </td>                
+            </tr>           
+        </tbody>
+    </table>

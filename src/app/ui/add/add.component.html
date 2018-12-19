@@ -1,0 +1,45 @@
+<div class="container">
+  <form #taskDetails="ngForm" (ngSubmit)="Add()" [formGroup]="addForm" novalidate class="form">
+    <div class="form-group ">
+      <label for="task">Task</label>
+      <input type="text" class="form-control " id="task" name="task" formControlName="task"
+      required [(ngModel)]="task.task">
+      <div class="alert  alert-danger" *ngIf="addForm.get('task').hasError('required') && addForm.get('task').touched">  
+        Task name is required  
+      </div>
+    </div>
+    <div class="form-group ">
+      <label for="priority">Priority</label>
+      <input type="range" class="left inline" formControlName="priority" id="priority" min="0" max="30" name="priority" required [(ngModel)]="task.priority">
+      <span>{{taskDetails.value.priority}}</span>
+      <div class="alert  alert-danger" *ngIf="addForm.get('priority').hasError('required') && addForm.get('priority').touched">  
+        Priority is required  
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="parentTask">Parent Task</label>
+      <input type="text" class="form-control" formControlName="parentTask" id="parentTask" name="parentTask" required [(ngModel)]="task.parentTask">
+      <div class="alert  alert-danger" *ngIf="addForm.get('parentTask').hasError('required') && addForm.get('parentTask').touched">  
+        ParentTask name is required  
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="start_Date">Start date</label>
+      <input type="date" class="form-control" formControlName="start_Date" id="start_Date" name="start_Date" required [(ngModel)]="task.start_Date">
+      <div class="alert  alert-danger" *ngIf="addForm.get('start_Date').hasError('required') && addForm.get('start_Date').touched">  
+        Start date is required  
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="end_Date">End date</label>
+      <input type="date" class="form-control" formControlName="end_Date" id="end_Date" name="end_Date" required [(ngModel)]="task.end_Date">
+      <div class="alert  alert-danger" *ngIf="addForm.get('end_Date').hasError('required') && addForm.get('end_Date').touched">  
+        End date is required  
+      </div>
+    </div>
+    <div class="form-group" id="btndivision">
+      <button type="submit" [routerLink]="['/ViewTask']" class="btn btn-default"  [disabled]='addForm.invalid' >Add Task</button>
+      <button type="reset" class="btn btn-default">Cancel</button>
+    </div>
+  </form>
+</div>
