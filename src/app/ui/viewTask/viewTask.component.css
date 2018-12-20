@@ -11,7 +11,17 @@ input{
     display: inline-block;
 }
 
-
+.oval {
+    background-color: white;
+    border-color: black;
+    border-width: 1px;
+    padding: 5px;
+    text-align: center;
+    display: inline-block;
+    font-size: 10px;
+    margin-left: 10px;
+    border-radius: 50%;
+  }
 
 .zeropad{
     padding:0;
