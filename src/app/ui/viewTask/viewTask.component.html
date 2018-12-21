@@ -1,15 +1,16 @@
 <div>
     <form class="form-inline" action="/action_page.php" style="margin-top:1%;margin-left: 2%">
-        <label style="font-weight: 100">Project:</label>
-        <input type="text" class="form-control" id="searchTask" name="searchTask" [(ngModel)]='searchTask' style="margin-left:1%;background-color:lightgrey;width:40%;position:relative" />
-        <button class="oval">Search</button>
+        <label style="font-weight: 100" for="searchByProjectName">Project:</label>
+        <input type="text" class="form-control" id="searchByProjectName" name="searchByProjectName" [(ngModel)]='searchByProjectName'
+            style="margin-left:1%;background-color:lightgrey;width:40%;position:relative" />
+        <button class="oval" data-toggle="modal" data-target="#myModal" (click)='GetProjects()'>Search</button>
         <label style="font-weight: 100; margin-left:1%"> Sort Task by:</label>
-    
-        <button class="btn btn-default" style="margin-left:1%">Start Date</button> 
-        <button class="btn btn-default" style="margin-left:1%">End Date</button> 
-        <button class="btn btn-default" style="margin-left:1%">Priority</button> 
-        <button class="btn btn-default" style="margin-left:1%">Completed</button> 
-        
+
+        <button class="btn btn-default" style="margin-left:1%" (click)="sort('start_Date')">Start Date</button>
+        <button class="btn btn-default" style="margin-left:1%" (click)="sort('end_Date')">End Date</button>
+        <button class="btn btn-default" style="margin-left:1%" (click)="sort('priority')">Priority</button>
+        <button class="btn btn-default" style="margin-left:1%" (click)="sort('status')">Completed</button>
+
     </form>
 </div>
 <br/>
@@ -24,7 +25,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let i of item | filterTask:searchTask:searchParentTask:startSearch:endSearch:searchPriorityFrom:searchPriorityTo">
+        <tr *ngFor="let i of item | orderBy: sortingName:isDesc">
             <td>
                 <label>{{i.task}}</label>
             </td>
@@ -35,11 +36,30 @@
             <td>{{i.start_Date | date}}</td>
             <td>{{i.end_Date | date}}</td>
             <td>
-                <button type="button" class="btn btn-default" [routerLink]="['/EditTask', i.task_Id]">Edit</button>
+                <button type="button" [disabled]="i.status == 'Completed'" class="btn btn-default" [routerLink]="['/EditTask', i.task_Id]">Edit</button>
             </td>
             <td>
-                <button type="button" class="btn btn-default" (click)='Delete(i.task_Id)'>End Task</button>
+                <button type="button" [disabled]="i.status == 'Completed'" class="btn btn-default" (click)='Delete(i.task_Id)'>End Task</button>
             </td>
         </tr>
     </tbody>
 </table>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" id="modalClose" class="close" data-dismiss="modal">&times;</button>
+                <label>Projects result</label>
+            </div>
+            <div class="modal-body">
+                <table class="table table-hover">
+                    <tr *ngFor="let p of projectsList">
+                        <td (click)='SearchTasksByProject(p.project_ID)'>{{p.project1}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
