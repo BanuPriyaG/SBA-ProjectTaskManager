@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms"; 
 
 @Component({
-  selector: 'app-edit',
+  selector: 'app-editTask',
   templateUrl: './editTask.component.html',
   styleUrls: ['./editTask.component.css']
 })

@@ -11,9 +11,13 @@ import { EditTaskComponent } from './ui/editTask/editTask.component';
 import { ReactiveFormsModule } from "@angular/forms";  
 import { FilterTaskPipe } from '../app/pipe/filterTask.pipe';
 import { pipe } from 'rxjs';
+import { AddUserComponent } from './ui/addUser/addUser.component';
+import { AddProjectComponent } from './ui/addProject/addProject.component';
 
 const appRoutes: Routes = [
   { path: 'ViewTask', component: ViewTaskComponent },
+  { path:'AddUser', component:AddUserComponent},
+  { path:'AddProject',component:AddProjectComponent},
   { path: 'AddTask', component:AddTaskComponent },
   { path: 'EditTask/:id', component: EditTaskComponent },
   { path: '', component:ViewTaskComponent }
@@ -25,7 +29,9 @@ const appRoutes: Routes = [
     ViewTaskComponent,
     AddTaskComponent,
     EditTaskComponent,
-    FilterTaskPipe
+    FilterTaskPipe,
+    AddUserComponent,
+    AddProjectComponent
   ],
   imports: [
     BrowserModule,

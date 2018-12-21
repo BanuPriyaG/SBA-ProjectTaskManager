@@ -1,0 +1,62 @@
+<div class="container" style="width:55%;">
+    <form #userDetails="ngForm" [formGroup]="addForm" novalidate class="form" style="margin-left:-40%">
+      <br/>
+      <div class="form-inline">
+          <label for="firstName">First Name:</label>
+          <input type="text" style="width:50%;background-color:lightgrey;margin-left:5%" class="form-control " id="firstName" name="firstName" formControlName="firstName"
+          required >
+          <div class="alert  alert-danger" *ngIf="addForm.get('firstName').hasError('required') && addForm.get('firstName').touched">  
+            First name is required  
+          </div>
+      </div>
+      <br/>
+      <div class="form-inline">
+          <label for="lastName">Last Name:</label>
+          <input type="text" style="width:50%;background-color:lightgrey;margin-left:5%" class="form-control " id="lastName" name="lastName" formControlName="lastName"
+          required >
+          <div class="alert  alert-danger" *ngIf="addForm.get('lastName').hasError('required') && addForm.get('lastName').touched">  
+            Last name is required  
+          </div>
+      </div>
+      <br/>
+      <div class="form-inline">
+          <label for="empID">Employee ID:</label>
+          <input type="text" style="width:50%;background-color:lightgrey;margin-left:3.5%" class="form-control " id="empID" name="empID" formControlName="empID"
+          required >
+          <div class="alert  alert-danger" *ngIf="addForm.get('empID').hasError('required') && addForm.get('empID').touched">  
+            Employee ID is required  
+          </div>
+      </div>
+      <br/>
+      <div class="form-group" id="btndivision" style="padding-left: 49%;position: relative;">
+        <button type="submit" class="btn btn-default"  [disabled]='addForm.invalid'>Add</button>
+        <button type="reset" class="btn btn-default" style="margin-left:2%;position: relative;">Reset</button>
+      </div>
+      <hr style="border-width:1px">
+      <div>
+          <form class="form-inline" action="/action_page.php" style="margin-top:1%;margin-left: 2%">              
+              <input type="text" placeholder="Search.." class="form-control" id="searchUser" name="searchTask" [(ngModel)]='searchUser' style="margin-left:1%;background-color:lightgrey;width:50%;position:relative" />              
+              <label style="font-weight: 100; margin-left:10%"> Sort:</label>          
+              <button class="btn btn-default" style="margin-left:1%">First Name</button> 
+              <button class="btn btn-default" style="margin-left:1%">Last Name</button> 
+              <button class="btn btn-default" style="margin-left:1%">ID</button>               
+          </form>
+      </div>
+      <br/>
+      <table class="table table-hover">
+          <tbody style="width:100%">
+              <tr>
+                  <td style="width:80%;">
+                      <input class="form-control" type="text" style="background-color: lightgray;margin-top:3px" >
+                      <input class="form-control" type="text" style="background-color: lightgray;margin-top:3px">
+                      <input class="form-control" type="text" style="background-color: lightgray;margin-top:3px">
+                  </td>
+                  <td style="width:20%">
+                      <button type="button" class="btn btn-default" >Edit</button>
+                      <button type="button" class="btn btn-default" (click)='Delete(i.task_Id)'>Delete</button>
+                  </td>
+              </tr>
+          </tbody>
+      </table>
+    </form>
+  </div>
