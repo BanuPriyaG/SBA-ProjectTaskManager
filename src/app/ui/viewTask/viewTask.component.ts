@@ -25,6 +25,7 @@ export class ViewTaskComponent implements OnInit {
   constructor(private _service:SharedService, 
     private _router: Router,
     private _route: ActivatedRoute) { }
+    
   ngOnInit() {  
    this._service.getAllTasks().subscribe(
       data => this.item = data,
@@ -37,14 +38,15 @@ export class ViewTaskComponent implements OnInit {
   }
 
   GetProjects(){
-    this._service.getProjectsByName(this.searchByProjectName).subscribe(
+    this._service.getProjectByName(this.searchByProjectName).subscribe(
       data => this.projectsList = data,
       error => console.error(error)
     )
   }
 
-  SearchTasksByProject(project_Id){
-    this._service.searchTasksByProjID(project_Id).subscribe(
+  SearchTasksByProject(project_Id, projectName){
+    this.searchByProjectName = projectName;
+    this._service.searchTaskByProjID(project_Id).subscribe(
       data => {
         document.getElementById('modalClose').click();
         this.item = data;
@@ -68,11 +70,5 @@ export class ViewTaskComponent implements OnInit {
       this.isDesc = !this.isDesc;
     }
     this.sortingName = name;
-  }
-
-  isCompleted(status)
-  {
-    if(status=="Completed")return true;
-    else return false;
   }
 }

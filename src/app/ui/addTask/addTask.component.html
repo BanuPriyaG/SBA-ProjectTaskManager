@@ -1,75 +1,112 @@
 <div class="container" style="width:55%">
-  <form #taskDetails="ngForm" (ngSubmit)="Add()" [formGroup]="addForm" novalidate class="form" >
+  <form class="form" novalidate>
     <div class="form-inline">
       <label for="project">Project:</label>
-      <input type="text" style="width:62%;margin-left:8%" class="form-control" id="project" name="project" formControlName="project"
-      required >
-      <div class="alert  alert-danger" *ngIf="addForm.get('project').hasError('required') && addForm.get('project').touched">  
-        Project name is required  
-      </div>        
-      <button class="oval">Search</button>
+      <input type="text" style="width:62%;margin-left:8%;background-color: lightgrey" class="form-control" 
+      required id="project" name="project" [(ngModel)]='project'>     
+      <button class="oval" data-toggle="modal" data-target="#projModal" (click)='GetProjects()'>Search</button>
     </div>
     <br/>
     <div class="form-inline">
       <label for="task">Task:</label>
-      <input type="text" style="width:73%;margin-left:11%" class="form-control " id="task" name="task" formControlName="task"
+      <input type="text" style="width:73%;margin-left:11%;background-color: lightgrey" class="form-control" id="task" name="task" 
       required [(ngModel)]="task.task">
-      <div class="alert  alert-danger" *ngIf="addForm.get('task').hasError('required') && addForm.get('task').touched">  
-        Task name is required  
-      </div>
     </div>
     <br/>
     <div class="form-inline">
-      <input type="checkbox" style="margin-left:18%" id="ParentTask" name="ParentTask" checked>
-      <label for="ParentTask">&nbsp;&nbsp;Parent Task</label>
+      <input type="checkbox" style="margin-left:18%;background-color: lightgrey" id="pTask" name="pTask" checked>
+      <label for="pTask">&nbsp;&nbsp;Parent Task</label>
     </div>
     <br/>
     <div class="form-inline">
       <label for="priority">Priority:</label>
       <!-- <span style="position:relative">0</span> -->
-      <input type="range" style="width:73%;margin-top:-5%;margin-left:18%;"  formControlName="priority" id="priority" min="0" max="30" name="priority"
+      <input type="range" style="width:73%;margin-top:-5%;margin-left:18%;;color: lightgrey" id="priority" min="0" max="30" name="priority"
        required [(ngModel)]="task.priority">
-       <!-- <span style="position:relative">30</span> -->
-      <div class="alert  alert-danger" *ngIf="addForm.get('priority').hasError('required') && addForm.get('priority').touched">  
-        Priority is required  
-      </div>
     </div>
     <br/>
-    <div class="form-inline" >
+    <div class="form-inline">
       <label for="parentTask">Parent Task:</label>
-      <input type="text" style="width:62%;margin-left:2%"  class="form-control" formControlName="parentTask" id="parentTask" name="parentTask" required [(ngModel)]="task.parentTask">
-      <div class="alert  alert-danger" *ngIf="addForm.get('parentTask').hasError('required') && addForm.get('parentTask').touched">  
-        ParentTask name is required  
-      </div>
-      <button class="oval">Search</button>
+      <input type="text" style="width:62%;margin-left:2%;background-color: lightgrey"  class="form-control" id="parentTask" 
+        name="parentTask" required [(ngModel)]="parentTask" >
+      <button class="oval" data-toggle="modal" data-target="#taskModal"  (click)='GetTasks()'>Search</button>
     </div>
     <br/>
     <div class="form-inline">
       <label for="start_Date">Start Date:</label>
-      <input type="date" style="width:29%;margin-left:4.5%"  class="form-control" formControlName="start_Date" id="start_Date" name="start_Date" required [(ngModel)]="task.start_Date">
-      <div class="alert  alert-danger" *ngIf="addForm.get('start_Date').hasError('required') && addForm.get('start_Date').touched">  
-        Start date is required  
-      </div>
+      <input type="date" style="width:29%;margin-left:4.5%;background-color: lightgrey"  class="form-control" id="start_Date" name="start_Date" required [(ngModel)]="task.start_Date">
       <label for="end_Date" style="margin-left:2%" >End date:</label>
-      <input type="date" style="width:29%;margin-left:2%"  class="form-control" formControlName="end_Date" id="end_Date" name="end_Date" required [(ngModel)]="task.end_Date">
-      <div class="alert  alert-danger" *ngIf="addForm.get('end_Date').hasError('required') && addForm.get('end_Date').touched">  
-        End date is required  
-      </div>
+      <input type="date" style="width:29%;margin-left:2%;background-color: lightgrey"  class="form-control" id="end_Date" name="end_Date" required [(ngModel)]="task.end_Date">
     </div>
     <br/>
     <div class="form-inline">
-        <label for="user">User:</label>
-        <input type="text" style="width:62%;margin-left:11%" class="form-control" id="user" name="user" formControlName="user"
-        required >
-        <div class="alert  alert-danger" *ngIf="addForm.get('user').hasError('required') && addForm.get('user').touched">  
-          User name is required  
-        </div>        
-        <button class="oval">Search</button>
+        <label for="userName">User:</label>
+        <input type="text" style="width:62%;margin-left:11%;background-color: lightgrey" class="form-control" id="userName" name="userName" 
+        required [(ngModel)]="userName">   
+        <button class="oval" data-toggle="modal" data-target="#usrModal" (click)='GetUsers()'>Search</button>
     </div>
     <br/>
     <div class="form-group" id="btndivision" style="padding-left: 55%;position: relative;">
-      <button type="submit" [routerLink]="['/ViewTask']" class="btn btn-default"  [disabled]='addForm.invalid'>Add Task</button>
+      <button type="submit" [routerLink]="['/ViewTask']" (click)="Add()" class="btn btn-default">Add Task</button>
       <button type="reset" class="btn btn-default">Reset</button>
     </div>
   </form>
+</div>
+
+
+<!--Project Modal -->
+<div id="projModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" id="pmodalClose" class="close" data-dismiss="modal">&times;</button>
+              <label>Projects</label>
+          </div>
+          <div class="modal-body">
+              <table class="table table-hover">
+                  <tr *ngFor="let p of projectsList">
+                      <td (click)='SelectProject(p.project_ID)'>{{p.project1}}</td>
+                  </tr>
+              </table>
+          </div>
+      </div>
+  </div>  
+</div>
+
+<!--Task Modal -->
+<div id="taskModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" id="tmodalClose" class="close" data-dismiss="modal">&times;</button>
+              <label>Tasks</label>
+          </div>
+          <div class="modal-body">
+              <table class="table table-hover">
+                  <tr *ngFor="let t of tasksList">
+                      <td (click)='SelectTask(t.task_Id)'>{{t.task}}</td>
+                  </tr>
+              </table>
+          </div>
+      </div>
+  </div>
+</div>
+
+<!--User Modal -->
+<div id="usrModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" id="umodalClose" class="close" data-dismiss="modal">&times;</button>
+              <label>Users</label>
+          </div>
+          <div class="modal-body">
+              <table class="table table-hover">
+                  <tr *ngFor="let u of usersList">
+                      <td (click)='SelectUser(u.user_ID)'>{{u.firstName}} {{u.lastName}} </td>
+                  </tr>
+              </table>
+          </div>
+      </div>
+  </div>
 </div>

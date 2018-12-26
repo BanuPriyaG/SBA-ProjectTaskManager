@@ -56,7 +56,7 @@
             <div class="modal-body">
                 <table class="table table-hover">
                     <tr *ngFor="let p of projectsList">
-                        <td (click)='SearchTasksByProject(p.project_ID)'>{{p.project1}}</td>
+                        <td (click)='SearchTasksByProject(p.project_ID, p.project1)'>{{p.project1}}</td>
                     </tr>
                 </table>
             </div>

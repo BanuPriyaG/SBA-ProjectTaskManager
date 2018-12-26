@@ -7,6 +7,7 @@ import { Http, Headers, Response } from "@angular/http";
  
 const endpointTask = 'http://localhost/SBA/ProjectManagerService/api/tasks';
 const endpointProject = 'http://localhost/SBA/ProjectManagerService/api/projects';
+const endpointUser = 'http://localhost/SBA/ProjectManagerService/api/users';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json'
@@ -27,6 +28,10 @@ export class SharedService {
     getTask(id:number):Observable<any>{
         return this._http.get<any>(endpointTask + '?taskId=' + id)
       };
+
+    getTaskByName(taskName:string):Observable<any>{
+      return this._http.get<any>(endpointTask + '?taskName=' + taskName)
+    };
     
     addTask(task:Task):Observable<string>{
         return this._http.post<string>(endpointTask, task, httpOptions)
@@ -40,7 +45,7 @@ export class SharedService {
         return this._http.delete<string>(endpointTask + '?taskId=' + task_Id)
     }
 
-    searchTasksByProjID(projId:number):Observable<any>{
+    searchTaskByProjID(projId:number):Observable<any>{
       return this._http.get<any>(endpointTask + '?projId=' + projId)
     };
 
@@ -48,11 +53,23 @@ export class SharedService {
     getAllProjects():Observable<any> {
       return this._http.get<any>(endpointProject)
     };
+    
+    getProjectById(projId:number):Observable<any> {
+      return this._http.get<any>(endpointProject + '?projectId=' + projId);
+    };
 
-    getProjectsByName(projName:string):Observable<any>{
+    getProjectByName(projName:string):Observable<any>{
       return this._http.get<any>(endpointProject + '?projectName=' + projName)
     };
 
+    //Users
+    getUserById(usrId:number):Observable<any> {
+      return this._http.get<any>(endpointUser + '?userId=' + usrId);
+    };
+
+    getUserByName(usrName:string):Observable<any>{
+      return this._http.get<any>(endpointUser + '?userName=' + usrName)
+    };
   }
 
     
