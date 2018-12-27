@@ -5,6 +5,7 @@ import { Project } from 'src/app/models/project';
 import { User } from 'src/app/models/user';
 import { RouterModule } from '@angular/router';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from "@angular/forms"; 
 
 @Component({
   selector: 'app-addTask',
@@ -20,13 +21,25 @@ export class AddTaskComponent implements OnInit {
   tasksList:Task[]=[];
   userName:string;
   usersList:User[]=[];
+  addForm: FormGroup; 
 
   constructor(
     private _service:SharedService,
     private _route: ActivatedRoute,
-    private _router: Router) {     
+    private _router: Router,
+    private _formBuilder: FormBuilder) {     
   }
   ngOnInit() {
+    this.addForm = this._formBuilder.group({      
+      project: ['', Validators.required],        
+      task: ['', Validators.required],
+      pTask: ['', [Validators.required]],  
+      parentTask: ['', [Validators.required]],  
+      priority: ['', [Validators.required]],
+      start_Date:['', [Validators.required]],
+      end_Date:['', [Validators.required]],    
+      userName: ['', Validators.required],  
+    }); 
   }
 
   Add(){
@@ -34,8 +47,8 @@ export class AddTaskComponent implements OnInit {
     this._service.addTask(this.task).subscribe(
         result => console.log(result),
         error => console.error(error)
-    )
-    this._router.navigate(['ViewTask']);
+    )        
+    window.location.reload();
   }
 
   GetProjects(){
