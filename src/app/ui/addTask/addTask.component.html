@@ -1,20 +1,26 @@
 <div class="container" style="width:55%">
-  <form class="form" novalidate>
+  <form #taskDetails="ngForm" [formGroup]="addForm" novalidate class="form">
     <div class="form-inline">
       <label for="project">Project:</label>
       <input type="text" style="width:62%;margin-left:8%;background-color: lightgrey" class="form-control" 
-      required id="project" name="project" [(ngModel)]='project'>     
+      required id="project" name="project" [(ngModel)]='project' formControlName="project">     
+      <!--       <div class="alert  alert-danger" *ngIf="addForm.get('project').hasError('required') && addForm.get('project').touched">  
+        Project name is required  
+      </div>   -->
       <button class="oval" data-toggle="modal" data-target="#projModal" (click)='GetProjects()'>Search</button>
     </div>
     <br/>
     <div class="form-inline">
       <label for="task">Task:</label>
       <input type="text" style="width:73%;margin-left:11%;background-color: lightgrey" class="form-control" id="task" name="task" 
-      required [(ngModel)]="task.task">
+      required [(ngModel)]="task.task1" formControlName="task">
+      <!-- <div class="alert  alert-danger" *ngIf="addForm.get('task').hasError('required') && addForm.get('task').touched">  
+        Task name is required  
+      </div> -->
     </div>
     <br/>
     <div class="form-inline">
-      <input type="checkbox" style="margin-left:18%;background-color: lightgrey" id="pTask" name="pTask" checked>
+      <input type="checkbox" style="margin-left:18%;background-color: lightgrey" id="pTask" name="pTask" checked formControlName="pTask">
       <label for="pTask">&nbsp;&nbsp;Parent Task</label>
     </div>
     <br/>
@@ -22,27 +28,44 @@
       <label for="priority">Priority:</label>
       <!-- <span style="position:relative">0</span> -->
       <input type="range" style="width:73%;margin-top:-5%;margin-left:18%;;color: lightgrey" id="priority" min="0" max="30" name="priority"
-       required [(ngModel)]="task.priority">
+       required [(ngModel)]="task.priority" formControlName="priority">
+       <!-- <div class="alert  alert-danger" *ngIf="addForm.get('priority').hasError('required') && addForm.get('priority').touched">  
+        Priority is required  
+      </div> -->
     </div>
     <br/>
     <div class="form-inline">
       <label for="parentTask">Parent Task:</label>
       <input type="text" style="width:62%;margin-left:2%;background-color: lightgrey"  class="form-control" id="parentTask" 
-        name="parentTask" required [(ngModel)]="parentTask" >
-      <button class="oval" data-toggle="modal" data-target="#taskModal"  (click)='GetTasks()'>Search</button>
+        name="parentTask" required [(ngModel)]="parentTask" formControlName="parentTask" >
+        <!-- <div class="alert  alert-danger" *ngIf="addForm.get('parentTask').hasError('required') && addForm.get('parentTask').touched">  
+            ParentTask name is required  
+          </div> -->
+        <button class="oval" data-toggle="modal" data-target="#taskModal"  (click)='GetTasks()'>Search</button>
     </div>
     <br/>
     <div class="form-inline">
       <label for="start_Date">Start Date:</label>
-      <input type="date" style="width:29%;margin-left:4.5%;background-color: lightgrey"  class="form-control" id="start_Date" name="start_Date" required [(ngModel)]="task.start_Date">
-      <label for="end_Date" style="margin-left:2%" >End date:</label>
-      <input type="date" style="width:29%;margin-left:2%;background-color: lightgrey"  class="form-control" id="end_Date" name="end_Date" required [(ngModel)]="task.end_Date">
+      <input type="date" style="width:29%;margin-left:4.5%;background-color: lightgrey" 
+       class="form-control" id="start_Date" name="start_Date" required [(ngModel)]="task.start_Date" formControlName="start_Date">
+       <!-- <div class="alert  alert-danger" *ngIf="addForm.get('start_Date').hasError('required') && addForm.get('start_Date').touched">  
+        Start date is required  
+      </div> -->
+       <label for="end_Date" style="margin-left:2%" >End date:</label>
+      <input type="date" style="width:29%;margin-left:2%;background-color: lightgrey"  class="form-control" id="end_Date" 
+      name="end_Date" required [(ngModel)]="task.end_Date" formControlName="end_Date">
+      <!-- <div class="alert  alert-danger" *ngIf="addForm.get('end_Date').hasError('required') && addForm.get('end_Date').touched">  
+        End date is required  
+      </div> -->
     </div>
     <br/>
     <div class="form-inline">
         <label for="userName">User:</label>
         <input type="text" style="width:62%;margin-left:11%;background-color: lightgrey" class="form-control" id="userName" name="userName" 
-        required [(ngModel)]="userName">   
+        required [(ngModel)]="userName" formControlName="userName">   
+        <!-- <div class="alert  alert-danger" *ngIf="addForm.get('user').hasError('required') && addForm.get('user').touched">  
+            User name is required  
+          </div>  -->
         <button class="oval" data-toggle="modal" data-target="#usrModal" (click)='GetUsers()'>Search</button>
     </div>
     <br/>
