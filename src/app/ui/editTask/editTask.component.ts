@@ -3,6 +3,8 @@ import { SharedService } from 'src/app/shared.service';
 import { Task } from 'src/app/models/task';
 import { RouterModule } from '@angular/router';
 import { ActivatedRoute, Router } from '@angular/router'; 
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+//import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-editTask',
@@ -11,21 +13,34 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class EditTaskComponent implements OnInit {
   task = new Task();
+  editForm: FormGroup; 
   constructor(private _service:SharedService, 
     private _router: Router,
-    private _route: ActivatedRoute) { }
+    private _route: ActivatedRoute,
+    private _formBuilder: FormBuilder){}
+    //public datepipe: DatePipe) { }
     
   ngOnInit() {
+    this.editForm = this._formBuilder.group({        
+      taskV: ['', Validators.required],  
+      parentTaskV: ['', [Validators.required]],  
+      priorityV: ['', [Validators.required]],
+      start_DateV:['', [Validators.required]],
+      end_DateV:['', [Validators.required]]
+    }); 
 
     this._route.params.subscribe(params => {
       this._service.getTask(params['id']).subscribe(result => {
-        this.task = result});});
+        this.task = result;
+      });});
   }
 
   Edit(){
+    //console.log(this.task);
     this._service.editTask(this.task).subscribe(
       result => console.log(result),
       error => console.error(error)
-  );
-    this._router.navigate(['ViewTask'])}
+  )
+  window.location.reload();
+}
 }
