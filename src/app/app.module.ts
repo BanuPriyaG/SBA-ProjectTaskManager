@@ -10,6 +10,7 @@ import { FormsModule }from '@angular/forms';
 import { EditTaskComponent } from './ui/editTask/editTask.component';
 import { ReactiveFormsModule } from "@angular/forms";  
 import { FilterTaskPipe } from '../app/pipe/filterTask.pipe';
+import { FilterUserPipe } from '../app/pipe/filterUser.pipe';
 import { OrderByPipe } from '../app/pipe/orderBy.pipe';
 import { pipe } from 'rxjs';
 import { AddUserComponent } from './ui/addUser/addUser.component';
@@ -33,7 +34,8 @@ const appRoutes: Routes = [
     FilterTaskPipe,
     AddUserComponent,
     AddProjectComponent,
-    OrderByPipe
+    OrderByPipe,
+    FilterUserPipe
   ],
   imports: [
     BrowserModule,
