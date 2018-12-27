@@ -1,9 +1,9 @@
 <div class="container">
-  <form #taskDetails="ngForm" (ngSubmit)="Edit()" novalidate class="form">
+  <form #taskDetails="ngForm" [formGroup]="editForm" novalidate class="form">
     <div class="form-group ">
       <label for="task">Task</label>
       <input type="text" class="form-control " id="task" name="task" formControlName="task"
-      required [(ngModel)]="task.task">
+      required [(ngModel)]="task.task1">
     </div>
     <div class="form-group">
       <label for="priority">Priority</label>
@@ -23,7 +23,7 @@
       <input type="date" class="form-control" formControlName="end_Date" id="end_Date" name="end_Date" required [(ngModel)]="task.end_Date">      
     </div>
     <div class="form-group" id="btndivision">
-      <button type="submit" [routerLink]="['/ViewTask']" class="btn btn-default"  [disabled]='editForm.invalid' >Update Task</button>
+      <button type="submit" [routerLink]="['/ViewTask']" (click)="Edit()" class="btn btn-default"  [disabled]='editForm.invalid' >Update Task</button>
       <button type="reset" class="btn btn-default">Cancel</button>
     </div>
   </form>
