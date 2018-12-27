@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, of } from 'rxjs';
 import { Task } from './models/task';
 import { Project } from './models/project';
+import { User } from './models/user';
 import { Http, Headers, Response } from "@angular/http";
  
 const endpointTask = 'http://localhost/SBA/ProjectManagerService/api/tasks';
@@ -70,6 +71,22 @@ export class SharedService {
     getUserByName(usrName:string):Observable<any>{
       return this._http.get<any>(endpointUser + '?userName=' + usrName)
     };
+
+    addUser(user:User):Observable<string>{
+      return this._http.post<string>(endpointUser, user, httpOptions)
+    };
+
+    editUser(user:User):Observable<string>{
+      return this._http.put<string>(endpointUser, user, httpOptions)
+    }
+
+    getAllUsers(): Observable<any> {
+      return this._http.get<any>(endpointUser)
+    }; 
+    
+    deleteUser(user_Id:number):Observable<string>{
+        return this._http.delete<string>(endpointUser + '?userId=' + user_Id)
+    }
   }
 
     
