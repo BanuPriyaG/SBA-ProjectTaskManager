@@ -72,6 +72,8 @@ export class SharedService {
       return this._http.get<any>(endpointUser + '?userName=' + usrName)
     };
 
+    
+
     addUser(user:User):Observable<string>{
       return this._http.post<string>(endpointUser, user, httpOptions)
     };

@@ -49,6 +49,7 @@ export class AddTaskComponent implements OnInit {
         error => console.error(error)
     )        
     window.location.reload();
+    
   }
 
   GetProjects(){
