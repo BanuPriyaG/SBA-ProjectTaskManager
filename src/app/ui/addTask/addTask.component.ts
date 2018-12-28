@@ -20,6 +20,7 @@ export class AddTaskComponent implements OnInit {
   parentTask:string;
   tasksList:Task[]=[];
   userName:string;
+  userId:number;
   usersList:User[]=[];
   addForm: FormGroup; 
 
@@ -44,12 +45,11 @@ export class AddTaskComponent implements OnInit {
 
   Add(){
     this.task.status = "InProgress";
-    this._service.addTask(this.task).subscribe(
+    this._service.addTask(this.task, this.userId).subscribe(
         result => console.log(result),
         error => console.error(error)
     )        
-    window.location.reload();
-    
+    window.location.reload();    
   }
 
   GetProjects(){
@@ -83,7 +83,7 @@ export class AddTaskComponent implements OnInit {
     this._service.getTask(task_Id).subscribe(
       data => {
         document.getElementById('tmodalClose').click();
-        this.parentTask =data.task;
+        this.parentTask =data.task1;
       },
       error => console.error(error)
     )
@@ -97,6 +97,7 @@ export class AddTaskComponent implements OnInit {
   }
 
   SelectUser(user_Id){
+    this.userId = user_Id;
     this._service.getUserById(user_Id).subscribe(
       data => {
         document.getElementById('umodalClose').click();

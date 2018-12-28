@@ -5,6 +5,7 @@ import { Task } from './models/task';
 import { Project } from './models/project';
 import { User } from './models/user';
 import { Http, Headers, Response } from "@angular/http";
+import { HttpParams } from '@angular/common/http';
  
 const endpointTask = 'http://localhost/SBA/ProjectManagerService/api/tasks';
 const endpointProject = 'http://localhost/SBA/ProjectManagerService/api/projects';
@@ -12,7 +13,7 @@ const endpointUser = 'http://localhost/SBA/ProjectManagerService/api/users';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json'
-  })
+  })  
 };
 
 @Injectable()
@@ -34,8 +35,13 @@ export class SharedService {
       return this._http.get<any>(endpointTask + '?taskName=' + taskName)
     };
     
-    addTask(task:Task):Observable<string>{
-        return this._http.post<string>(endpointTask, task, httpOptions)
+    addTask(task:Task, userId:number):Observable<string>{
+        return this._http.post<string>(endpointTask, task, {
+          headers: new HttpHeaders({
+            'Content-Type':  'application/json'
+          })  ,
+          params : new HttpParams({fromString: 'userId=' + userId})
+        })
     }
     
     editTask(task:Task):Observable<string>{
@@ -54,6 +60,10 @@ export class SharedService {
     getAllProjects():Observable<any> {
       return this._http.get<any>(endpointProject)
     };
+
+    getProjectBasedTaskDetails():Observable<any> {
+      return this._http.get<any>(endpointProject + '/taskDetails')
+    };
     
     getProjectById(projId:number):Observable<any> {
       return this._http.get<any>(endpointProject + '?projectId=' + projId);
@@ -63,6 +73,18 @@ export class SharedService {
       return this._http.get<any>(endpointProject + '?projectName=' + projName)
     };
 
+    addProject(proj:Project):Observable<string>{
+      return this._http.post<string>(endpointProject, proj, httpOptions)
+    };
+
+    editProject(proj:Project):Observable<string>{
+      return this._http.put<string>(endpointProject, proj, httpOptions)
+    }
+    
+    deleteProject(project_Id:number):Observable<string>{
+      return this._http.delete<string>(endpointProject + '?projectId=' + project_Id)
+    }
+
     //Users
     getUserById(usrId:number):Observable<any> {
       return this._http.get<any>(endpointUser + '?userId=' + usrId);
@@ -70,9 +92,7 @@ export class SharedService {
 
     getUserByName(usrName:string):Observable<any>{
       return this._http.get<any>(endpointUser + '?userName=' + usrName)
-    };
-
-    
+    };    
 
     addUser(user:User):Observable<string>{
       return this._http.post<string>(endpointUser, user, httpOptions)

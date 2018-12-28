@@ -1,79 +1,88 @@
 <div class="container" style="width:80%;">
-    <form #userDetails="ngForm" [formGroup]="addForm" novalidate class="form" style="margin-left:-10%">
+    <form #projectDetails="ngForm" [formGroup]="addProjectForm" novalidate class="form" style="margin-left:-10%">
       <br/>
       <div class="form-inline">
           <label for="project">Project:</label>
-          <input type="text" style="width:50%;background-color:lightgrey;margin-left:5%" class="form-control " id="project" name="project" formControlName="project"
-          required >
-          <div class="alert  alert-danger" *ngIf="addForm.get('project').hasError('required') && addForm.get('project').touched">  
+          <input type="text" style="width:50%;background-color:lightgrey;margin-left:5%" 
+          class="form-control " id="project" name="project" 
+          formControlName="project" [disabled]="setStartAndEndDate" [(ngModel)]="project.project1"  required >
+          <!-- <div class="alert  alert-danger" *ngIf="addForm.get('project').hasError('required') && addForm.get('project').touched">  
             Project name is required  
-          </div>
+          </div> -->
       </div>
       <br/>
       <div class="form-inline">
-        <input type="checkbox"  checked>
+        <input type="checkbox" ng-model="setStartAndEndDate" id="setStartAndEndDate" name="setStartAndEndDate">
         <label>&nbsp;&nbsp;Set Start and End Date</label>
-        <input type="date" style="width:18%;margin-left:2%"  class="form-control" formControlName="start_Date" id="start_Date" name="start_Date" required [(ngModel)]="task.start_Date" placeholder="Start Date">
-      <div class="alert  alert-danger" *ngIf="addForm.get('start_Date').hasError('required') && addForm.get('start_Date').touched">  
+        <input type="date" style="width:18%;margin-left:2%"  class="form-control" 
+        formControlName="start_Date" id="start_Date" name="start_Date" required 
+        [(ngModel)]="project.start_Date" placeholder="Start Date" ng-disabled="!setStartAndEndDate">
+      <!-- <div class="alert  alert-danger" *ngIf="addForm.get('start_Date').hasError('required') && addForm.get('start_Date').touched">  
         Start date is required  
-      </div>
-      <input type="date" style="width:18%;margin-left:2%"  class="form-control" formControlName="end_Date" id="end_Date" name="end_Date" required [(ngModel)]="task.end_Date" placeholder="End Date">
-      <div class="alert  alert-danger" *ngIf="addForm.get('end_Date').hasError('required') && addForm.get('end_Date').touched">  
+      </div> -->
+      <input type="date" style="width:18%;margin-left:2%"  class="form-control" 
+      formControlName="end_Date" id="end_Date" name="end_Date" required 
+      [(ngModel)]="project.end_Date" placeholder="End Date" ng-disabled="!setStartAndEndDate">
+      <!-- <div class="alert  alert-danger" *ngIf="addForm.get('end_Date').hasError('required') && addForm.get('end_Date').touched">  
         End date is required  
-      </div>
+      </div> -->
       </div>
       <br/>
       <div class="form-inline">
           <label for="priority">Priority:</label>
           <!-- <span style="position:relative">0</span> -->
           <input type="range" style="width:50%;margin-top:-3%;margin-left:11.5%;"  formControlName="priority" id="priority" min="0" max="30" name="priority"
-           required [(ngModel)]="task.priority">
+           required [(ngModel)]="project.priority">
            <!-- <span style="position:relative">30</span> -->
-          <div class="alert  alert-danger" *ngIf="addForm.get('priority').hasError('required') && addForm.get('priority').touched">  
+          <!-- <div class="alert  alert-danger" *ngIf="addForm.get('priority').hasError('required') && addForm.get('priority').touched">  
             Priority is required  
-          </div>
+          </div> -->
       </div>
       <br/>
       <div class="form-inline">
           <label for="manager">Manager:</label>
-          <input type="text" style="width:43%;margin-left:4%" class="form-control" id="manager" name="manager" formControlName="manager"
-          required >
-          <div class="alert  alert-danger" *ngIf="addForm.get('manager').hasError('required') && addForm.get('manager').touched">  
+          <input type="text" style="width:43%;margin-left:4%" class="form-control" 
+          id="manager" name="manager" formControlName="manager" readonly
+          [(ngModel)]="manager" required >
+          <!-- <div class="alert  alert-danger" *ngIf="addForm.get('manager').hasError('required') && addForm.get('manager').touched">  
             Manager name is required  
-          </div>        
-          <button class="oval">Search</button>
+          </div>         -->
+          <button class="oval" data-toggle="modal" data-target="#usrModal" (click)='GetUsers()'>Search</button>
         </div>
       <br/>
       <div class="form-group" id="btndivision" style="padding-left:47%;position: relative;">
-        <button type="submit" class="btn btn-default"  [disabled]='addForm.invalid'>Add</button>
-        <button type="reset" class="btn btn-default" style="margin-left:2%;position: relative;">Reset</button>
+        <button type="submit" class="btn btn-default" id="btnSubmit" [disabled]='addProjectForm.invalid' (click)="AddProject()">Add</button>
+        <button type="button" class="btn btn-default" style="margin-left:2%;position: relative;" (click)="Reset()">Reset</button>
       </div>
       <hr style="border-width:1px; width:65%; margin-left:-10px">
       <div>
           <form class="form-inline" action="/action_page.php" >              
-              <input type="text" placeholder="Search.." class="form-control" id="searchProject" name="searchProject" [(ngModel)]='searchProject' style="background-color:lightgrey;width:15%;position:relative" />              
+              <input type="text" placeholder="Search.." class="form-control" id="searchProject" 
+              name="searchProject" [(ngModel)]='searchProject' 
+              style="background-color:lightgrey;width:15%;position:relative" />              
               <label style="font-weight:100;margin-left:1%"> Sort By:</label>          
-              <button class="btn btn-default" style="margin-left:0.5%">Start Date</button> 
-              <button class="btn btn-default" style="margin-left:0.5%">End Date</button> 
-              <button class="btn btn-default" style="margin-left:0.5%">Priority</button>   
-              <button class="btn btn-default" style="margin-left:0.5%">Completed</button>                
+              <button class="btn btn-default" style="margin-left:0.5%" (click)="sort('starT_DATE')">Start Date</button> 
+              <button class="btn btn-default" style="margin-left:0.5%" (click)="sort('enD_DATE')">End Date</button> 
+              <button class="btn btn-default" style="margin-left:0.5%" (click)="sort('priority')">Priority</button>   
+              <button class="btn btn-default" style="margin-left:0.5%" (click)="sort('completed')">Completed</button>                
           </form>
       </div>
       <br/>
-      <table class="table table-hover" style="width:65%; margin-left:-10px">
+      <table class="table table-hover" style="width:65%; margin-left:-10px"
+       *ngFor="let p of projectTaskDetails | filterProject:searchProject | orderBy: sortingName:isDesc">
           <tbody style="width:100%">
             <tr>
               <td style="width:60%; height:100%">
                       <div class="form-group" style="background-color:lightgray;">
-                        <div style="width:100%; padding-top:2%;padding-left:2%">Project:</div>                        
+                        <div style="width:100%; padding-top:2%;padding-left:2%">Project:{{p.project}}</div>                        
                         <table style="width:100%; margin-top:7%;margin-left:2%;">
                           <tr>
-                            <td>No. of tasks:</td>
-                            <td>Completed:</td>
+                            <td>No. of tasks:  {{p.taskscount}}</td>
+                            <td>Completed:  {{p.completed}}</td>
                           </tr>
                           <tr>
-                            <td>Start Date:</td>
-                            <td>End Date:</td>
+                            <td>Start Date:  {{p.starT_DATE}}</td>
+                            <td>End Date:  {{p.enD_DATE}}</td>
                           </tr>
                         </table>
                       </div>
@@ -81,13 +90,13 @@
               <td style="width:20%; height:100%;">
                 Priority:
                 <div style="background-color:lightgray;padding:10px;box-sizing:border-box;height:70px">
-
+                  {{p.priority}}
                 </div>   
               </td>
               <td style="width:20%; height:100%;">
                 <div class="form-group">
-                    <button type="button" class="btn btn-default" style="margin-top:5%" >Update</button>
-                    <button type="button" class="btn btn-default" style="margin-top:10%" >Suspend</button>
+                    <button type="button" class="btn btn-default" style="margin-top:5%" (click)="Edit(p.projecT_ID)">Update</button>
+                    <button type="button" class="btn btn-default" style="margin-top:10%" (click)="Delete(p.projecT_ID)">Suspend</button>
                 </div>
               </td>
             </tr>
@@ -95,3 +104,22 @@
       </table>
     </form>
   </div>
+
+  <!--User Modal -->
+<div id="usrModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" id="umodalClose" class="close" data-dismiss="modal">&times;</button>
+              <label>Users</label>
+          </div>
+          <div class="modal-body">
+              <table class="table table-hover">
+                  <tr *ngFor="let u of usersList">
+                      <td (click)='SelectUser(u.user_ID)'>{{u.firstName}} {{u.lastName}} </td>
+                  </tr>
+              </table>
+          </div>
+      </div>
+  </div>
+</div>

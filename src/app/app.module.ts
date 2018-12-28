@@ -9,7 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule }from '@angular/forms';
 import { EditTaskComponent } from './ui/editTask/editTask.component';
 import { ReactiveFormsModule } from "@angular/forms";  
-import { FilterTaskPipe } from '../app/pipe/filterTask.pipe';
+import { FilterProjectPipe } from '../app/pipe/filterProject.pipe';
 import { FilterUserPipe } from '../app/pipe/filterUser.pipe';
 import { OrderByPipe } from '../app/pipe/orderBy.pipe';
 import { pipe } from 'rxjs';
@@ -31,7 +31,7 @@ const appRoutes: Routes = [
     ViewTaskComponent,
     AddTaskComponent,
     EditTaskComponent,
-    FilterTaskPipe,
+    FilterProjectPipe,
     AddUserComponent,
     AddProjectComponent,
     OrderByPipe,
