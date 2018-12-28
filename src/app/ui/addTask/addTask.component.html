@@ -40,7 +40,7 @@
       <label for="parentTask">Parent Task:</label>
       <input type="text" style="width:62%;margin-left:2%;background-color: lightgrey"  class="form-control" id="parentTask" 
         name="parentTask" required [(ngModel)]="parentTask" 
-        formControlName="parentTask" ng-disabled="!pTaskCheck">
+        formControlName="parentTask" ng-disabled="pTaskCheck">
         <!-- <div class="alert  alert-danger" *ngIf="addForm.get('parentTask').hasError('required') && addForm.get('parentTask').touched">  
             ParentTask name is required  
           </div> -->

@@ -22,6 +22,7 @@ export class AddProjectComponent implements OnInit {
   searchProject:string;
   sortingName: string;
   isDesc: boolean;
+  today = new Date();
 
   constructor(
     private _service:SharedService,
@@ -30,6 +31,10 @@ export class AddProjectComponent implements OnInit {
     private _formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    
+    this.project.start_Date = this.today;
+    this.project.end_Date= new Date(this.today.getDate() + 1);
+    
     this.addProjectForm = this._formBuilder.group({      
       project: ['', Validators.required],    
       priority: ['', [Validators.required]],
