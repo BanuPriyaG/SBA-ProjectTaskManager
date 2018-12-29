@@ -22,4 +22,24 @@ describe('AddUserComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should validate form', () => {
+    expect(component.addUserForm).toBeTruthy();
+  });
+
+  it('should add user', () => {
+    expect(component.AddUser).toBeTruthy();
+  });
+
+  it('should delete user', () => {
+    expect(component.Delete).toBeTruthy();
+  });
+
+  it('should edit user', () => {
+    expect(component.Edit).toBeTruthy();
+  });
+
+  it('should reset form', () => {
+    expect(component.Reset).toBeTruthy();
+  });
 });

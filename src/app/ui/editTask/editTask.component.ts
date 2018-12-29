@@ -22,11 +22,11 @@ export class EditTaskComponent implements OnInit {
     
   ngOnInit() {
     this.editForm = this._formBuilder.group({        
-      taskV: ['', Validators.required],  
-      parentTaskV: ['', [Validators.required]],  
-      priorityV: ['', [Validators.required]],
-      start_DateV:['', [Validators.required]],
-      end_DateV:['', [Validators.required]]
+      task: ['', Validators.required],  
+      parentTask: ['', [Validators.required]],  
+      priority: ['', [Validators.required]],
+      start_Date:['', [Validators.required]],
+      end_Date:['', [Validators.required]]
     }); 
 
     this._route.params.subscribe(params => {

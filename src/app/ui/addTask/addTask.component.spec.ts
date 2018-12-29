@@ -27,4 +27,27 @@ describe('AddComponent', () => {
     expect(component.Add()).toBeTruthy();
   });
   
+  it('should get projects', () => {
+    expect(component.GetProjects()).toBeTruthy();
+  });
+
+  it('should get tasks', () => {
+    expect(component.GetTasks()).toBeTruthy();
+  });
+
+  it('check get users', () => {
+    expect(component.GetUsers()).toBeTruthy();
+  });
+
+  it('should select a project', () => {
+    expect(component.SelectProject(1)).toBeTruthy();
+  });
+
+  it('should select a task', () => {
+    expect(component.SelectTask(1)).toBeTruthy();
+  });
+
+  it('should select a user', () => {
+    expect(component.SelectUser(1)).toBeTruthy();
+  });
 });
