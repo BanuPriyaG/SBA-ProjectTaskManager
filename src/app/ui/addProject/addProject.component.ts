@@ -23,6 +23,7 @@ export class AddProjectComponent implements OnInit {
   sortingName: string;
   isDesc: boolean;
   today = new Date();
+  setStartAndEndDate:boolean;
 
   constructor(
     private _service:SharedService,
@@ -35,7 +36,7 @@ export class AddProjectComponent implements OnInit {
     this.project.start_Date = this.today;
     this.project.end_Date= new Date(this.today.getDate() + 1);
     
-    this.addProjectForm = this._formBuilder.group({      
+    this.addProjectForm = this._formBuilder.group({  
       project: ['', Validators.required],    
       priority: ['', [Validators.required]],
       start_Date:['', [Validators.required]],
